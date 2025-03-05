@@ -1,35 +1,81 @@
 // C++ code
 //
 
+
+// initialising buttons
 const int INC_BUTTON_PIN = 7;
 const int DEC_BUTTON_PIN = 6;
 
+
+// initialising numbers
 const int FREQ_INC = 10;
 const int MIN_FREQ = 50;
-const int MAX_FREQ = 20_000;
-
+const int MAX_FREQ = 20'000;
+  
+// initialising output pins
 const int OUTPUT_PIN_1 = 13;
 const int OUTPUT_PIN_2 = 12;
 
 const int SIGNAL_PIN = 3; //uses pin for audio, supports PWM
 
 
-int signalFREQ = MIN_FREQ;
+int signalFreq = MIN_FREQ;
 
 void setup()
 {
+  
+  // outputs
   pinMode(OUTPUT_PIN_1, OUTPUT);
   pinMode(OUTPUT_PIN_2, OUTPUT);
   
-  
+  // button inputs
   pinMode(INC_BUTTON_PIN, INPUT);
   pinMode(DEC_BUTTON_PIN, INPUT);
   
+  //serial
+  Serial.begin(115200); //speed of data transfer 115 kb
   
+  tone(SIGNAL_PIN, signalFreq);
+  Serial.write("\n rf = ");
+  Serial.write(signalFreq);
+  Serial.write("hz");
   
 }
 
 void loop()
 {
   //Actual function
+  if (!digitalRead(INC_BUTTON_PIN)){
+    
+    signalFreq += FREQ_INC;
+    
+    if(signalFreq>MAX_FREQ){
+      signalFreq = MAX_FREQ;
+    }
+    
+    tone(SIGNAL_PIN, signalFreq);
+  	Serial.write("\n rf = ");
+  	Serial.write(signalFreq);
+  	Serial.write("hz");
+     
+  }
+  
+  
+  if (!digitalRead(DEC_BUTTON_PIN)){
+    
+    signalFreq -= FREQ_INC;
+    
+    if(signalFreq<MIN_FREQ){
+      signalFreq = MIN_FREQ;
+    }
+    
+    tone(SIGNAL_PIN, signalFreq);
+  	Serial.write("\n rf = ");
+  	Serial.write(signalFreq);
+  	Serial.write("hz");
+     
+  }
+  
+  delay(10);
+  
 }

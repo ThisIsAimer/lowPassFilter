@@ -10,7 +10,7 @@ const int DEC_BUTTON_PIN = 6;
 // initialising numbers
 const int FREQ_INC = 10;
 const int MIN_FREQ = 50;
-const int MAX_FREQ = 20'000;
+const int MAX_FREQ = 20000;
   
 // initialising output pins
 const int OUTPUT_PIN_1 = 13;
@@ -35,10 +35,9 @@ void setup()
   //serial
   Serial.begin(115200); //speed of data transfer 115 kb
   
-  tone(SIGNAL_PIN, signalFreq);
-  Serial.write("\n rf = ");
-  Serial.write(signalFreq);
-  Serial.write("hz");
+  Serial.print("\n\rf = ");
+  Serial.print(signalFreq);
+  Serial.println("hz");
   
 }
 
@@ -54,9 +53,9 @@ void loop()
     }
     
     tone(SIGNAL_PIN, signalFreq);
-  	Serial.write("\n rf = ");
-  	Serial.write(signalFreq);
-  	Serial.write("hz");
+  	Serial.print("\n\rf = ");
+    Serial.print(signalFreq);
+    Serial.println("hz");
      
   }
   
@@ -69,10 +68,8 @@ void loop()
       signalFreq = MIN_FREQ;
     }
     
-    tone(SIGNAL_PIN, signalFreq);
-  	Serial.write("\n rf = ");
-  	Serial.write(signalFreq);
-  	Serial.write("hz");
+    Serial.print("\n\rf = ");
+    Serial.print(signalFreq);Serial.println("hz");
      
   }
   
